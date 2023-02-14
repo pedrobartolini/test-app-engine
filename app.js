@@ -7,12 +7,13 @@ const credentials = {
 	password: process?.env?.password,
 }
 
-let code, games
+let code, games, isOnline
 
 const session = new steam()
 
 session.on('steamGuard', (domain, callback) => callback(code))
 session.on('loggedOn', () => {
+	isOnline = 1
 	console.log('Logged in, playing games..')
 	session.setPersona(1)
 	session.gamesPlayed(games)
@@ -26,8 +27,9 @@ app.post('/', (req, res) => {
 	code = req.body.steam
 	games = req.body.games
 	if (!(code && games)) return
+	if (!isOnline) return session.logOn(credentials)
+	session.gamesPlayed(games)
 	res.send('Success')
-	session.logOn(credentials)
 })
 
 app.listen(port, () => console.log('Escutando na porta ' + port))
