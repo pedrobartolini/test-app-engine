@@ -20,20 +20,21 @@ session.on('loggedOn', () => {
 })
 
 session.on('disconnected', () => {
-	console.log('Disconnected')
+	console.log('Disconnected..')
+	isOnline = 0
 })
 
 //API
 const app = express()
 app.use(express.json())
 app.post('/', (req, res) => {
-	code, (games = '')
+	code = games = ''
 	code = req.body.steam
 	games = req.body.games
-	res.send('Success')
 	if (!(code && games)) return
 	if (!isOnline) return session.logOn(credentials)
 	session.gamesPlayed(games)
+	res.send(isOnline ? 'Changing games' : 'Loggin in')
 })
 
 app.listen(port, () => console.log('Escutando na porta ' + port))
