@@ -9,7 +9,11 @@ app.use(express.json())
 app.post('/', (req, res) => {
 	if (req.headers.authorization !== process.env.PHP_TOKEN) return res.send('no permission')
 	paciente_atualizado(req.body)
-	res.sendStatus(201)
+	res.sendStatus(200)
+})
+
+app.get('/', (req, res) => {
+	res.sendStatus(200)
 })
 
 function paciente_atualizado(json) {

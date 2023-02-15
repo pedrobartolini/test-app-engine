@@ -56,13 +56,13 @@ export default function message(number) {
 }
 
 function text_template({ doutor, paciente, link, status }) {
-	const ola = `Olá, *${doutor}*!\n`
+	const ola = `Olá, ${doutor}!\n`
 	const planejamento = link ? `\n\nConfira abaixo o link do planejamento completo:\n\n${link}` : ''
 	const opcoes = {
-		'Planejamento Finalizado': `Seu atendimento com *${paciente}* foi finalizado com sucesso!`,
-		Concluído: `Seu planejamento com *${paciente}* foi concluido com sucesso!`,
-		Aguardando: `Seu planejamento com *${paciente}* foi colocado em aguardo.`,
-		'Pagamento Confirmado': `Seu planejamento com *${paciente}* foi pago com sucesso.`,
+		'Planejamento Finalizado': `Seu atendimento com ${paciente} foi finalizado com sucesso!`,
+		Concluído: `Seu planejamento com ${paciente} foi concluido com sucesso!`,
+		Aguardando: `Seu planejamento com ${paciente} foi colocado em aguardo.`,
+		'Pagamento Confirmado': `Seu planejamento com ${paciente} foi pago com sucesso.`,
 	}
 	return ola + opcoes[status] + planejamento
 }
