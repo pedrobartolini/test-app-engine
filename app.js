@@ -13,7 +13,6 @@ app.post('/', (req, res) => {
 })
 
 app.get('/webhooks', (req, res) => {
-	console.log(req.query['hub.mode'])
 	res.send(req.query['hub.challenge'])
 })
 
