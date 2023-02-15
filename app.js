@@ -15,8 +15,14 @@ app.post('/', (req, res) => {
 app.get('/webhooks', (req, res) => res.send(req.query['hub.challenge']))
 
 app.post('/webhooks', (req, res) => {
-	console.log(req.body.entry[0].changes[0].value.messages)
-	message('5532991421477').text('mensagem')
+	const messages = req?.body?.entry[0]?.changes[0]?.value.messages
+	if (!messages) return res.sendStatus(200)
+
+	for (const each of messages) {
+		message('5532991421477').text(each.text.body)
+	}
+
+	res.sendStatus(200)
 })
 
 function paciente_atualizado(json) {
