@@ -12,10 +12,11 @@ app.post('/', (req, res) => {
 	res.sendStatus(200)
 })
 
-app.get('/webhooks', (req, res) => {
-	res.send(req.query['hub.challenge'])
-	console.log('algo')
+app.get('/webhooks', (req, res) => res.send(req.query['hub.challenge']))
+
+app.post('/webhooks', (req, res) => {
 	console.log(req.body)
+	console.log('algo')
 })
 
 function paciente_atualizado(json) {
