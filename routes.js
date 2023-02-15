@@ -25,16 +25,19 @@ function post_updated(req, res) {
 	}
 	if (json.post_status !== 'publish') return res.sendCode(200)
 	if (!options.paciente) return res.sendCode(200)
-	message('5532991421477').text(options)
+	message(caio).text(options)
 	return res.sendStatus(200)
 }
+
+const mynumber = '5532991421477'
+const caio = '5532991402490'
 
 function post_webhooks(req, res) {
 	const messages = req?.body?.entry[0]?.changes[0]?.value.messages
 	if (!messages) return res.sendStatus(200)
 	for (const each of messages) {
 		console.log(each)
-		message('5532991421477').text(each.text.body)
+		message(caio).text(each.text.body)
 	}
 	return res.sendStatus(200)
 }
