@@ -12,8 +12,8 @@ app.post('/', (req, res) => {
 	res.sendStatus(200)
 })
 
-app.get('/', (req, res) => {
-	console.log(req?.query?.verify_token)
+app.get('/webhooks', (req, res) => {
+	console.log(req.query['hub.mode'])
 	res.send(req.query['hub.challenge'])
 })
 
