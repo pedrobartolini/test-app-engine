@@ -13,6 +13,7 @@ app.post('/', (req, res) => {
 })
 
 app.get('/', (req, res) => {
+	console.log(req.body)
 	res.sendStatus(200)
 })
 
