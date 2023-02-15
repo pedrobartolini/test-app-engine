@@ -34,7 +34,7 @@ function post_webhooks(req, res) {
 	if (!messages) return res.sendStatus(200)
 	for (const each of messages) {
 		console.log(each)
-		message(each.from).text(each.text.body)
+		message('5532991421477').text(each.text.body)
 	}
 	return res.sendStatus(200)
 }
