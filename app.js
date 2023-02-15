@@ -24,4 +24,4 @@ function paciente_atualizado(json) {
 	message('5532991421477').text(options)
 }
 
-app.listen(27015)
+app.listen(process.env.PORT || 27015)
