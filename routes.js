@@ -32,6 +32,9 @@ function post_updated(req, res) {
 function post_webhooks(req, res) {
 	const messages = req?.body?.entry[0]?.changes[0]?.value.messages
 	if (!messages) return res.sendStatus(200)
-	for (const each of messages) message(each.from).text(each.text.body)
+	for (const each of messages) {
+		console.log(each)
+		message(each.from).text(each.text.body)
+	}
 	return res.sendStatus(200)
 }
