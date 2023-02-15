@@ -1,40 +1,27 @@
-import steam from 'steam-user'
+import * as dotenv from 'dotenv'
 import express from 'express'
+import message from './messages.js'
+dotenv.config()
 
-const port = process?.env?.PORT || 27015
-const credentials = {
-	accountName: process?.env?.accountName,
-	password: process?.env?.password,
-}
-
-let code, games, isOnline
-
-const session = new steam()
-
-session.on('steamGuard', (domain, callback) => callback(code))
-session.on('loggedOn', () => {
-	isOnline = 1
-	console.log('Logged in, playing games..')
-	session.setPersona(1)
-	session.gamesPlayed(games)
-})
-
-session.on('disconnected', () => {
-	console.log('Disconnected..')
-	isOnline = 0
-})
-
-//API
 const app = express()
 app.use(express.json())
+
 app.post('/', (req, res) => {
-	code = games = ''
-	code = req.body.steam
-	games = req.body.games
-	if (!(code && games)) return
-	if (!isOnline) return session.logOn(credentials)
-	session.gamesPlayed(games)
-	res.send(isOnline ? 'Changing games' : 'Loggin in')
+	if (req.headers.authorization !== process.env.PHP_TOKEN) return res.send('no permission')
+	paciente_atualizado(req.body)
+	res.sendStatus(201)
 })
 
-app.listen(port, () => console.log('Escutando na porta ' + port))
+function paciente_atualizado(json) {
+	const options = {
+		doutor: 'Pedro',
+		paciente: json?.paciente,
+		link: json?.link,
+		status: json.status,
+	}
+	if (json.post_status !== 'publish') return
+	if (!options.paciente) return
+	message('5532991421477').text(options)
+}
+
+app.listen(27015)
