@@ -13,8 +13,8 @@ app.post('/', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-	console.log(req.body)
-	res.sendStatus(200)
+	console.log(req?.query?.verify_token)
+	res.send(req.query['hub.challenge'])
 })
 
 function paciente_atualizado(json) {
