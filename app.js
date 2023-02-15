@@ -15,7 +15,7 @@ app.post('/', (req, res) => {
 app.get('/webhooks', (req, res) => res.send(req.query['hub.challenge']))
 
 app.post('/webhooks', (req, res) => {
-	console.log(req.body.entry[0].changes)
+	console.log(req.body.entry[0].changes[0].value.messages)
 })
 
 function paciente_atualizado(json) {
