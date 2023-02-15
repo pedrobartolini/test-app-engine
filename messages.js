@@ -1,4 +1,4 @@
-import { post } from './message_helper.js'
+import post_message from './message_helper.js'
 
 const template_blueprint = {
 	messaging_product: 'whatsapp',
@@ -36,23 +36,26 @@ export default function message(number) {
 	function atendimento_finalizado() {
 		blueprint.template.name = 'atendimento_finalizado'
 		blueprint.template.language.code = 'pt_BR'
-		return post(JSON.stringify(blueprint))
+		return post_message(blueprint)
 	}
 
 	function hello_world() {
 		blueprint.template.name = 'hello_world'
 		blueprint.template.language.code = 'en_US'
-		return post(JSON.stringify(blueprint))
+		return post_message(blueprint)
 	}
 
-	function text(text) {
+	function text(param) {
 		blueprint = text_blueprint
 		blueprint.to = number
-		blueprint.text.body = typeof text == 'string' ? text : text_template(text)
-		return post(JSON.stringify(blueprint))
+		blueprint.text.body = typeof param == 'string' ? param : text_template(param)
+		return post_message(blueprint)
 	}
 
-	return { template, text }
+	return {
+		template,
+		text,
+	}
 }
 
 function text_template({ doutor, paciente, link, status }) {

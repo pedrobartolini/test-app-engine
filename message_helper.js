@@ -1,5 +1,6 @@
 import axios from 'axios'
-export function post(data) {
+export default function post_message(data) {
+	data = JSON.stringify(data)
 	return axios({
 		method: 'post',
 		url: `https://graph.facebook.com/v15.0/109406995407357/messages`,
